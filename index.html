@@ -720,20 +720,15 @@
                     </div>
                 </div>
                 <!-- Formulario -->
-                <form
-                    action="https://formspree.io/f/mvkpgajn"
+                <form class="formulario" action="https://formspree.io/f/mvkpgajn"
                     method="POST">
-  <label>
-    Your email:
-    <input type="email" name="email">
-  </label>
-  <label>
-    Your message:
-    <textarea name="message"></textarea>
-  </label>
-  <!-- your other form fields go here -->
-  <button type="submit">Send</button>
-</form>
+                    <input type="text" placeholder="Nombre" required />
+                    <input type="text" placeholder="Empresa" />
+                    <input type="email" placeholder="Email" required />
+                    <input type="tel" placeholder="Teléfono" />
+                    <textarea placeholder="Mensaje" required></textarea>
+                    <button type="submit" class="btn btn-primario">Enviar consulta</button>
+                </form>
             </div>
         </div>
     </section>
