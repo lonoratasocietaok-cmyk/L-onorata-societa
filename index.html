@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>L'onorata Società</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <!-- Font Awesome 6 (gratis) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <style>
+        /* Reset & base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #4B0F1A;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.6;
+        }
+
+        /* Tipografías */
+        h1,
+        h2,
+        h3,
+        .titulo {
+            font-family: 'Cinzel', serif;
+            font-weight: 700;
+            color: #D4AF37;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        h3 {
+            font-size: 1.6rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .contenedor {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        /* === Animaciones scroll === */
+        .animado {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s ease-out;
+        }
+
+        .animado.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* === Botones === */
+        .btn {
+            display: inline-block;
+            padding: 0.8rem 2.2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 600;
+            font-size: 1rem;
+            border: 2px solid #D4AF37;
+            border-radius: 50px;
+            background: transparent;
+            color: #D4AF37;
+            text-decoration: none;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 0.5rem 0.5rem 0.5rem 0;
+            text-align: center;
+        }
+
+        .btn:hover {
+            background: #D4AF37;
+            color: #4B0F1A;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+            transform: scale(1.05);
+        }
+
+        .btn-primario {
+            background: #D4AF37;
+            color: #4B0F1A;
+        }
+
+        .btn-primario:hover {
+            background: transparent;
+            color: #D4AF37;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+        }
+
+        /* === Header / Navegación === */
+        header {
+            padding: 1.2rem 0;
+            background: rgba(75, 15, 26, 0.9);
+            backdrop-filter: blur(6px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .header-contenido {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #D4AF37;
+            letter-spacing: 2px;
+        }
+
+        .logo span {
+            color: #fff;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            transition: color 0.3s;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 0.2rem;
+        }
+
+        .nav-links a:hover {
+            color: #D4AF37;
+            border-bottom-color: #D4AF37;
+        }
+
+        /* === Hero === */
+        .hero {
+            min-height: 90vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #4B0F1A 0%, #2a0810 100%);
+            position: relative;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-contenido {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 4.2rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .hero p.hero-sub {
+            font-size: 1.4rem;
+            font-weight: 300;
+            color: #fff;
+            max-width: 700px;
+            margin: 0 auto 1rem;
+        }
+
+        .hero p.hero-desc {
+            font-size: 1.1rem;
+            color: #ddd;
+            max-width: 650px;
+            margin: 0 auto 2rem;
+            font-weight: 300;
+        }
+
+        .hero-botones {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* === Secciones comunes === */
+        section {
+            padding: 5rem 0;
+        }
+
+        .bg-claro {
+            background-color: rgba(255, 255, 255, 0.04);
+        }
+
+        /* === Quiénes somos === */
+        .quienes-texto {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.15rem;
+            color: #f0f0f0;
+            font-weight: 300;
+        }
+
+        .quienes-texto strong {
+            color: #D4AF37;
+            font-weight: 600;
+        }
+
+        /* === Servicios === */
+        .servicios-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .servicio-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 2rem 1.5rem;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.2);
+            transition: all 0.4s ease;
+            backdrop-filter: blur(4px);
+        }
+
+        .servicio-card:hover {
+            transform: translateY(-10px);
+            border-color: #D4AF37;
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.15);
+        }
+
+        .servicio-card i {
+            font-size: 2.8rem;
+            color: #D4AF37;
+            margin-bottom: 1rem;
+        }
+
+        .servicio-card h3 {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: #D4AF37;
+            margin-bottom: 0.8rem;
+        }
+
+        .servicio-card p {
+            font-size: 0.95rem;
+            color: #ddd;
+            font-weight: 300;
+        }
+
+        /* === Cómo trabajamos === */
+        .pasos {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.8rem;
+            max-width: 600px;
+            margin: 2rem auto 0;
+        }
+
+        .paso {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 0.8rem 1.8rem;
+            border-radius: 60px;
+            width: 100%;
+            border: 1px solid rgba(212, 175, 55, 0.15);
+            transition: all 0.3s;
+        }
+
+        .paso:hover {
+            border-color: #D4AF37;
+            background: rgba(212, 175, 55, 0.08);
+        }
+
+        .paso-num {
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #D4AF37;
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .paso-texto {
+            font-weight: 400;
+            color: #f0f0f0;
+        }
+
+        .paso .flecha {
+            color: #D4AF37;
+            font-size: 1.5rem;
+            margin-left: auto;
+        }
+
+        /* === Por qué elegirnos === */
+        .ventajas-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .ventaja {
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 12px;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: 0.3s;
+        }
+
+        .ventaja:hover {
+            border-color: #D4AF37;
+            background: rgba(212, 175, 55, 0.06);
+        }
+
+        .ventaja i {
+            color: #D4AF37;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .ventaja span {
+            display: block;
+            font-weight: 500;
+        }
+
+        /* === Visión === */
+        .vision-texto {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            font-size: 1.3rem;
+            font-weight: 300;
+            color: #f0f0f0;
+            font-style: italic;
+            border-left: 4px solid #D4AF37;
+            padding-left: 2rem;
+        }
+
+        /* === Contacto === */
+        .contacto-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            margin-top: 2rem;
+            align-items: start;
+        }
+
+        .contacto-info h3 {
+            font-family: 'Cinzel', serif;
+            color: #D4AF37;
+            font-size: 1.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .contacto-info p {
+            font-size: 1.1rem;
+            color: #ddd;
+            margin-bottom: 1rem;
+        }
+
+        .contacto-info i {
+            color: #D4AF37;
+            margin-right: 0.8rem;
+            width: 24px;
+        }
+
+        .contacto-info .item {
+            margin: 0.8rem 0;
+        }
+
+        .formulario input,
+        .formulario textarea {
+            width: 100%;
+            padding: 0.9rem 1.2rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            background: rgba(255, 255, 255, 0.06);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem;
+            transition: border 0.3s;
+        }
+
+        .formulario input::placeholder,
+        .formulario textarea::placeholder {
+            color: #aaa;
+        }
+
+        .formulario input:focus,
+        .formulario textarea:focus {
+            outline: none;
+            border-color: #D4AF37;
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .formulario textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .formulario .btn {
+            width: 100%;
+            justify-content: center;
+            background: #D4AF37;
+            color: #4B0F1A;
+            border: none;
+            font-weight: 700;
+        }
+
+        .formulario .btn:hover {
+            background: transparent;
+            color: #D4AF37;
+            border: 2px solid #D4AF37;
+        }
+
+        /* === Footer === */
+        footer {
+            background: #2a0810;
+            padding: 3rem 0 1.5rem;
+            border-top: 1px solid rgba(212, 175, 55, 0.2);
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-col h4 {
+            font-family: 'Cinzel', serif;
+            color: #D4AF37;
+            margin-bottom: 0.8rem;
+            font-size: 1.1rem;
+        }
+
+        .footer-col p,
+        .footer-col a {
+            color: #ccc;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.4rem;
+            transition: color 0.3s;
+        }
+
+        .footer-col a:hover {
+            color: #D4AF37;
+        }
+
+        .footer-col .social i {
+            font-size: 1.6rem;
+            margin-right: 1rem;
+            color: #ccc;
+            transition: color 0.3s;
+        }
+
+        .footer-col .social i:hover {
+            color: #D4AF37;
+        }
+
+        .footer-copy {
+            text-align: center;
+            border-top: 1px solid rgba(212, 175, 55, 0.1);
+            padding-top: 1.5rem;
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+
+        /* === Responsive === */
+        @media (max-width: 900px) {
+            .contacto-wrapper {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .header-contenido {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-links {
+                justify-content: center;
+                gap: 1rem;
+            }
+
+            .hero h1 {
+                font-size: 2.4rem;
+            }
+
+            .hero p.hero-sub {
+                font-size: 1.1rem;
+            }
+
+            .paso {
+                padding: 0.6rem 1rem;
+                border-radius: 30px;
+            }
+
+            .paso-num {
+                font-size: 1.4rem;
+                min-width: 30px;
+            }
+
+            .btn {
+                padding: 0.6rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            section {
+                padding: 3rem 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ========== HEADER ========== -->
+    <header>
+        <div class="contenedor header-contenido">
+            <div class="logo">L'onorata <span>Società</span></div>
+            <nav class="nav-links">
+                <a href="#inicio">Inicio</a>
+                <a href="#quienes">Quiénes somos</a>
+                <a href="#servicios">Servicios</a>
+                <a href="#contacto">Contacto</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- ========== HERO ========== -->
+    <section id="inicio" class="hero">
+        <div class="contenedor hero-contenido animado">
+            <h1>L'onorata Società</h1>
+            <p class="hero-sub">Where opportunities become partnerships.</p>
+            <p class="hero-desc">
+                Construimos relaciones comerciales que generan oportunidades.<br />
+                Conectamos empresas, proveedores y compradores para crear negocios sólidos, confiables y de largo plazo.
+            </p>
+            <div class="hero-botones">
+                <a href="#contacto" class="btn btn-primario">Solicitar una reunión</a>
+                <a href="#servicios" class="btn">Conocer nuestros servicios</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== QUIÉNES SOMOS ========== -->
+    <section id="quienes" class="bg-claro">
+        <div class="contenedor animado">
+            <h2>Quiénes somos</h2>
+            <div class="quienes-texto">
+                <p>
+                    <strong>Nuestra filosofía</strong><br /><br />
+                    En L'onorata Società creemos que los mejores negocios nacen de las relaciones.<br />
+                    No nos limitamos a conectar empresas. <strong>Creamos oportunidades</strong>, negociamos,
+                    buscamos soluciones y desarrollamos vínculos comerciales duraderos entre proveedores,
+                    fabricantes y compradores.<br /><br />
+                    Cada operación se basa en <strong>confianza, confidencialidad y profesionalismo</strong>.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== SERVICIOS ========== -->
+    <section id="servicios">
+        <div class="contenedor animado">
+            <h2>Servicios</h2>
+            <div class="servicios-grid">
+                <div class="servicio-card">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Broker Comercial</h3>
+                    <p>Encontramos proveedores estratégicos adaptados a las necesidades de cada empresa.</p>
+                </div>
+                <div class="servicio-card">
+                    <i class="fas fa-industry"></i>
+                    <h3>Desarrollo de Proveedores</h3>
+                    <p>Buscamos fabricantes nacionales e internacionales con los mejores estándares de calidad y precio.</p>
+                </div>
+                <div class="servicio-card">
+                    <i class="fas fa-users"></i>
+                    <h3>Desarrollo de Clientes</h3>
+                    <p>Ayudamos a las empresas a encontrar nuevos compradores para expandir su negocio.</p>
+                </div>
+                <div class="servicio-card">
+                    <i class="fas fa-scale-balanced"></i>
+                    <h3>Negociación Comercial</h3>
+                    <p>Intermediamos entre ambas partes para alcanzar acuerdos beneficiosos.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CÓMO TRABAJAMOS ========== -->
+    <section class="bg-claro">
+        <div class="contenedor animado">
+            <h2>Cómo trabajamos</h2>
+            <div class="pasos">
+                <div class="paso">
+                    <span class="paso-num">1</span>
+                    <span class="paso-texto">Analizamos la necesidad del cliente.</span>
+                    <span class="flecha"><i class="fas fa-arrow-down"></i></span>
+                </div>
+                <div class="paso">
+                    <span class="paso-num">2</span>
+                    <span class="paso-texto">Buscamos oportunidades comerciales.</span>
+                    <span class="flecha"><i class="fas fa-arrow-down"></i></span>
+                </div>
+                <div class="paso">
+                    <span class="paso-num">3</span>
+                    <span class="paso-texto">Evaluamos proveedores o compradores.</span>
+                    <span class="flecha"><i class="fas fa-arrow-down"></i></span>
+                </div>
+                <div class="paso">
+                    <span class="paso-num">4</span>
+                    <span class="paso-texto">Presentamos las mejores opciones.</span>
+                    <span class="flecha"><i class="fas fa-arrow-down"></i></span>
+                </div>
+                <div class="paso">
+                    <span class="paso-num">5</span>
+                    <span class="paso-texto">Acompañamos toda la negociación.</span>
+                    <span class="flecha"><i class="fas fa-check-circle" style="color:#D4AF37;"></i></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== POR QUÉ ELEGIRNOS ========== -->
+    <section>
+        <div class="contenedor animado">
+            <h2>¿Por qué elegirnos?</h2>
+            <div class="ventajas-grid">
+                <div class="ventaja"><i class="fas fa-user-check"></i><span>Atención personalizada</span></div>
+                <div class="ventaja"><i class="fas fa-link"></i><span>Relaciones comerciales de largo plazo</span></div>
+                <div class="ventaja"><i class="fas fa-search"></i><span>Búsqueda estratégica</span></div>
+                <div class="ventaja"><i class="fas fa-lock"></i><span>Confidencialidad</span></div>
+                <div class="ventaja"><i class="fas fa-briefcase"></i><span>Profesionalismo</span></div>
+                <div class="ventaja"><i class="fas fa-globe"></i><span>Red internacional de contactos</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== VISIÓN ========== -->
+    <section class="bg-claro">
+        <div class="contenedor animado">
+            <h2>Nuestra visión</h2>
+            <div class="vision-texto">
+                “Ser una referencia internacional en el desarrollo de relaciones comerciales,
+                creando oportunidades donde otros solo ven mercados.”
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== CONTACTO ========== -->
+    <section id="contacto">
+        <div class="contenedor animado">
+            <h2>Contacto</h2>
+            <p style="text-align:center; font-size:1.2rem; color:#ddd; margin-bottom:1rem;">
+                ¿Buscás nuevos proveedores o clientes? Hablemos.
+            </p>
+            <div class="contacto-wrapper">
+                <!-- Info -->
+                <div class="contacto-info">
+                    <h3>L'onorata Società</h3>
+                    <p><i class="fas fa-map-pin"></i> Broker Comercial Internacional</p>
+                    <div class="item"><i class="fas fa-envelope"></i> lonoratasocietaok@gmail.com</div>
+                    <div class="item"><i class="fas fa-phone"></i> +54 9 2257 55-9826</div>
+                    <div class="item"><i class="fas fa-clock"></i> Lunes a Sabado las 24 horas</div>
+                    <div style="margin-top:1.5rem;">
+                        <a href="#" style="color:#D4AF37; margin-right:1rem;"><i class="fab fa-instagram fa-2x"></i></a>
+                        <a href="#" style="color:#D4AF37; margin-right:1rem;"><i class="fab fa-whatsapp fa-2x"></i></a>
+                        <a href="#" style="color:#D4AF37;"><i class="fas fa-envelope fa-2x"></i></a>
+                    </div>
+                </div>
+                <!-- Formulario -->
+                <form
+                    action="https://formspree.io/f/mvkpgajn"
+                    method="POST">
+  <label>
+    Your email:
+    <input type="email" name="email">
+  </label>
+  <label>
+    Your message:
+    <textarea name="message"></textarea>
+  </label>
+  <!-- your other form fields go here -->
+  <button type="submit">Send</button>
+</form>
+            </div>
+        </div>
+    </section>
+
+    <!-- ========== FOOTER ========== -->
+    <footer>
+        <div class="contenedor">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>L'onorata Società</h4>
+                    <p>Broker Comercial Internacional</p>
+                    <p style="font-size:0.9rem; color:#aaa;">Confianza · Confidencialidad · Profesionalismo</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Contacto</h4>
+                    <a href="#"><i class="fas fa-envelope"></i> lonoratasocietaok@gmail.com</a>
+                    <a href="#"><i class="fas fa-phone"></i> +54 9 2257 55-9826</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Redes</h4>
+                    <div class="social">
+                        <a href="https://instagram.com/lonoratasocieta"></i> @lonoratasocieta</a>
+                        <a href="https://wa.me/5492257559826"></i> +54 9 2257 55-9826</a>
+                        <a href="mailto:lonoratasocietaok@gmail.com"></i> lonoratasocietaok@gmail.com</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-copy">
+                &copy; 2026 L'onorata Società. Todos los derechos reservados.
+            </div>
+        </div>
+    </footer>
+
+    <!-- ========== SCRIPT para animaciones al scroll ========== -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleccionar todos los elementos con clase 'animado'
+            const elementos = document.querySelectorAll('.animado');
+
+            // Configurar el Intersection Observer
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        // Opcional: dejar de observar una vez visible
+                        // observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.15,
+                rootMargin: '0px 0px -30px 0px'
+            });
+
+            elementos.forEach(el => observer.observe(el));
+
+            // Asegurar que el hero se vea siempre (por si no se activa el observer)
+            const hero = document.querySelector('.hero .animado');
+            if (hero) {
+                // Pequeño delay para que la transición sea suave
+                setTimeout(() => hero.classList.add('visible'), 200);
+            }
+        });
+    </script>
+ hola
+</body>
+    hola
+</html>
